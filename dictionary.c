@@ -5,7 +5,7 @@
 // Trie structure
 typedef struct Trie
 {	
-	int isWord;
+	int wordCounter;
 	struct Trie* next[26];
 	
 } trie;
@@ -15,11 +15,17 @@ void insert(struct Trie *pTrie, char *word)
 {
 	int len = strlen(word);
 	trie* temp = pTrie;
-	for (int x = 1; x <= len; x++) {
-
-
-		// lastly, if its the end of the word, mark it as isword.
-		//if ()
+	for (int x = 0; x <= len; x++) {
+		
+		// if its the end of the word, add to the word counter.
+		if (x == len) 
+			temp->wordCounter += 1;
+		// or else jump to the next trie
+		else 
+			// if the trie hasnt yet been created.
+			if (temp->next[word[x] - 'a'] == NULL)
+				temp->next[word[x] - 'a'] = createTrie();
+			temp = temp->next[word[x] - 'a'];
 	}
 }
 
@@ -29,21 +35,21 @@ int numberOfOccurances(struct Trie *pTrie, char *word)
 }
 
 // deallocate the trie structure
-void deallocateTrie(struct Trie *pTrie)
+struct Trie* deallocateTrie(struct Trie *pTrie)
 {
 	if (pTrie == NULL)
-		return;
+		return NULL;
 	for (int z = 0; z < 26; z++)
 		deallocateTrie(pTrie->next[z]);
 	free(pTrie);
-	
+	return NULL;
 }
 
 // Initializes a trie structure
 struct Trie *createTrie()
 {
 	trie* res = (trie*)malloc(sizeof(trie));
-	res->isWord = 0;
+	res->wordCounter = 0;
 	for (int y = 0; y < 26; y++)
 		res->next[y] = NULL;
 	return res;
