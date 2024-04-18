@@ -32,6 +32,19 @@ void insert(struct Trie *pTrie, char *word)
 // computes the number of occurances of the word
 int numberOfOccurances(struct Trie *pTrie, char *word)
 {
+	int len = strlen(word);
+	trie* temp = pTrie;
+	for (int x = 0; x < len; x++) {
+		if (temp->next[word[x] - 'a'] == NULL)
+			return 0;
+
+		else if (x+1 == len) 
+			return temp->wordCounter;
+		
+		else
+			temp = temp->next[word[x] - 'a'];
+
+	}
 }
 
 // deallocate the trie structure
