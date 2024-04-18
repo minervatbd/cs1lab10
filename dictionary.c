@@ -29,8 +29,14 @@ int numberOfOccurances(struct Trie *pTrie, char *word)
 }
 
 // deallocate the trie structure
-struct Trie *deallocateTrie(struct Trie *pTrie)
+void deallocateTrie(struct Trie *pTrie)
 {
+	if (pTrie == NULL)
+		return;
+	for (int z = 0; z < 26; z++)
+		deallocateTrie(pTrie->next[z]);
+	free(pTrie);
+	
 }
 
 // Initializes a trie structure
