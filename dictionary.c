@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+struct Trie* createTrie();
+
 // Trie structure
 typedef struct Trie
 {	
@@ -59,7 +61,7 @@ struct Trie* deallocateTrie(struct Trie *pTrie)
 }
 
 // Initializes a trie structure
-struct Trie *createTrie()
+struct Trie* createTrie()
 {
 	trie* res = (trie*)malloc(sizeof(trie));
 	res->wordCounter = 0;
@@ -72,6 +74,23 @@ struct Trie *createTrie()
 // and read all the words in the dictionary to the structure words
 int readDictionary(char *filename, char **pInWords)
 {
+	// open input file
+    FILE* inFile = fopen("dictionary.txt","r");
+
+	if (inFile == NULL) {
+		printf("dictionary.txt not found");
+		exit(-1);
+	}
+
+	int n;
+	fscanf(inFile, " %d", &n);
+
+	for (int i = 0; i < n; i++) {
+		char* current = (char*) malloc(sizeof(char)*36);
+		fscanf(inFile, " %s", current);
+		pInWords[i] = current;
+	}
+	return n;
 }
 
 int main(void)
