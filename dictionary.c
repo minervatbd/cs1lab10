@@ -3,13 +3,24 @@
 #include <string.h>
 
 // Trie structure
-struct Trie
+typedef struct Trie
 {	
-};
+	int isWord;
+	struct Trie* next[26];
+	
+} trie;
 
 // Inserts the word to the trie structure
 void insert(struct Trie *pTrie, char *word)
 {
+	int len = strlen(word);
+	trie* temp = pTrie;
+	for (int x = 1; x <= len; x++) {
+
+
+		// lastly, if its the end of the word, mark it as isword.
+		//if ()
+	}
 }
 
 // computes the number of occurances of the word
@@ -25,6 +36,11 @@ struct Trie *deallocateTrie(struct Trie *pTrie)
 // Initializes a trie structure
 struct Trie *createTrie()
 {
+	trie* res = (trie*)malloc(sizeof(trie));
+	res->isWord = 0;
+	for (int y = 0; y < 26; y++)
+		res->next[y] = NULL;
+	return res;
 }
 
 // this function will return number of words in the dictionary,
