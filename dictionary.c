@@ -36,16 +36,16 @@ int numberOfOccurances(struct Trie *pTrie, char *word)
 {
 	int len = strlen(word);
 	trie* temp = pTrie;
-	for (int x = 0; x < len; x++) {
-		if (temp->next[word[x] - 'a'] == NULL)
-			return 0;
-
-		else if (x+1 == len) 
+	for (int x = 0; x <= len; x++) {
+		// if its the end of the word, add to the word counter.
+		if (x == len) 
 			return temp->wordCounter;
-		
-		else
+		// or else jump to the next trie
+		else 
+			// if the trie hasnt yet been created.
+			if (temp->next[word[x] - 'a'] == NULL)
+				return 0;
 			temp = temp->next[word[x] - 'a'];
-
 	}
 }
 
